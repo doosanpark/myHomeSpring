@@ -1,28 +1,25 @@
 package my.home.SearchController;
+import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping(value = "/api/search", method = RequestMethod.POST)
+@CrossOrigin(origins = "http://localhost:3000")
 public class SearchController {
     @PostMapping(
             value = "/test",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Map<String, String>> test(){
+    public ResponseEntity<java.lang.Object> test(){
         Map<String, String> retVal = new HashMap<>();
         retVal.put("message", "test");
         return ResponseEntity.ok(retVal);
@@ -33,9 +30,26 @@ public class SearchController {
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Map<String, String>> list(@RequestBody HashMap<String, String> requestMap){
-        Map<String, String> retVal = new HashMap<>();
-        retVal.put("searchKeyword", requestMap.get("keyword"));
+    public ResponseEntity<java.lang.Object> list(@RequestBody HashMap<String, String> requestMap){
+        Map<String, Object> retVal = new HashMap<>();
+        List<Map<String, Object>> searchList = new ArrayList<>();
+        String keyword = requestMap.get("keyword");
+
+        for (int i = 1; i <= 5; i++){
+            Map<String, Object> searchItem = new HashMap<>();
+            searchItem.put("id", i);
+            searchItem.put("url", "http://localhost:3000/search/searchMain");
+
+            Object[] params = new Object[]{keyword, "집", i};
+            String msg = MessageFormat.format("{0} {1} {2}", params);
+            searchItem.put("name", msg);
+
+            searchList.add(searchItem);
+        }
+
+        retVal.put("searchKeyword", keyword);
+        retVal.put("searchList", searchList);
+
         return ResponseEntity.ok(retVal);
     }
 }
