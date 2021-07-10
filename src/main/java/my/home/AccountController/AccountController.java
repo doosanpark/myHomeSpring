@@ -29,13 +29,13 @@ public class AccountController {
 		return "login";
 	}
 	
-	@PostMapping( value = "/listmap",
-	        consumes = MediaType.APPLICATION_JSON_VALUE,
-	        produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<java.lang.Object> listmap(@RequestParam HashMap<String, Object> paramMap) {
+	@PostMapping( value = "/selAccntExist")
+	public @ResponseBody Map<String, Object> selAccntExist(@RequestParam HashMap<String, Object> paramMap) {
 		Map<String, Object> retVal = new HashMap<>();
+		System.out.println("paramMap :::: " + paramMap);
 		int resultVal = mapper.selAccntExist(paramMap);
+		System.out.println("resultVal :::: " + resultVal);
 		retVal.put("result", resultVal);
-		return  ResponseEntity.ok(retVal);
+		return  retVal;
 	}
 }

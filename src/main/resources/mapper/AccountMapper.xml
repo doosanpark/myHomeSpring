@@ -3,9 +3,9 @@
 <mapper namespace="my.home.AccountDao.AccountMapper" >
 
     <select id="selAccntExist" parameterType="map" resultType="int">
-    	select count(name) from account 
-    	where phone = #{telInfo}
-        and pass=#{passInfo}
+    	SELECT count(name) FROM account 
+    	WHERE phone = #{telInfo}
+        AND pass=#{passInfo}
     </select>
     
     
