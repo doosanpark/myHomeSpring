@@ -1,4 +1,4 @@
-package my.home.AccountDao;
+package my.home.dao;
 
 import java.util.HashMap;
 import java.util.List;

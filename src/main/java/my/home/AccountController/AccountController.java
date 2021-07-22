@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import my.home.AccountDao.AccountMapper;
+import my.home.dao.AccountMapper;
 
 @Controller
 @RequestMapping(value="account", method=RequestMethod.POST)
